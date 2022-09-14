@@ -8,10 +8,18 @@ def bulls_and_cows():
         target_number = random_number
         print("**TESTING** - target no. : {}".format(target_number))
 
+    #main body
     while True:
         num_digits = input('Please input 4 digits :')
-        #populate user's input in list[user_guess] eg. num_digits = 1111 => user_guess = [1,1,1,1]
-        user_guess = [int(num) for num in num_digits]
+        if num_digits.isdigit() == True and len(num_digits) == 4:
+            #populate user's input in list[user_guess] eg. num_digits = 1111 => user_guess = [1,1,1,1]
+            user_guess = [int(num) for num in num_digits]
+            
+        else:
+            print("4 Digits Integer only")
+            continue
+        
+          
         
         if user_guess == target_number:
             print("You win!!")
