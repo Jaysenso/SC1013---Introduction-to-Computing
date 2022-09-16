@@ -5,7 +5,7 @@ def get_color(color):
 
     while keep_looping: 
         tries_left = 3 - no_of_try #tries_left keep track of the number of tries with respect to no_of_try in the exception handling
-        if tries_left < 4:
+        if 0 <= tries_left < 4:
             try: #request an int input - if input != int, loop will be thrown into exception handling below
                 color_str=int(input("Enter the value of the {} color for message (0 to 255):".format(color)))
                 if color_str in range(0,256):
