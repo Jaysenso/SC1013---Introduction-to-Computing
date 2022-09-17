@@ -1,0 +1,53 @@
+from sense_hat import SenseHat
+from time import sleep
+sense = SenseHat()
+x,y = 0 , 0
+
+#movement of marble still wrong (check in lab)
+def move_marble(pitch,roll,x,y): 
+    new_x = x    #assume no change to start with
+    new_y = y    #assume no change to start with
+    
+    if  1 < roll < 179 and x != 0:
+        new_x -= 1 # move right
+    elif 359 > roll > 180   and x !=7:
+        new_x += 1 #move left
+    
+    if  1 < pitch < 179 and y != 7:
+        new_y += 1 # move right
+    elif 359 > pitch > 180   and y !=0:
+        new_y -= 1 #move left
+    return new_x, new_y
+
+  
+b = (0,0,0)
+w = (255,255,255)
+board = [[b,b,b,b,b,b,b,b], 
+         [b,b,b,b,b,b,b,b],
+         [b,b,b,b,b,b,b,b],
+         [b,b,b,b,b,b,b,b],
+         [b,b,b,b,b,b,b,b],
+         [b,b,b,b,b,b,b,b],
+         [b,b,b,b,b,b,b,b], 
+         [b,b,b,b,b,b,b,b]]
+print(board )
+while True:
+   
+    o = sense.get_orientation()
+    pitch = o['pitch'] 
+    roll = o['roll'] 
+
+    print("pitch {0} roll {1}".format(round(pitch,0),round(roll,0)))
+    x,y = move_marble(pitch,roll,x,y)
+
+    #print white marble
+    print(y,x)
+    board[y][x] = w
+    sense.set_pixels(sum(board,[])) 
+    sleep(0.1)
+    #to delete trail of marble
+    board[y][x] = b
+    
+  
+
+    

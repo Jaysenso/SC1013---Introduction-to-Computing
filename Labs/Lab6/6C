@@ -1,0 +1,66 @@
+from sense_hat import SenseHat
+from time import sleep
+sense = SenseHat()
+x,y = 1 , 1
+
+#movement of marble still wrong (check in lab)
+def move_marble(pitch,roll,x,y): 
+    new_x = x    #assume no change to start with
+    new_y = y    #assume no change to start with
+    
+    if  1 < roll < 179 and x != 1:
+        new_x -= 1 # move right
+    elif 359 > roll > 180   and x !=6:
+        new_x += 1 #move left
+
+    if  1 < pitch < 179 and y != 6:
+        new_y += 1 # move right
+    elif 359 > pitch > 180   and y !=1:
+        new_y -= 1 #move left
+
+    new_x,new_y = check_wall(x,y,new_x,new_y)
+    return new_x, new_y
+
+def check_wall(x,y,new_x,new_y):
+    if board[new_y][new_x] != r:
+        return new_x,new_y
+    elif board[new_y][x] != r:
+        return x,new_y
+    elif board[y][new_x] !=r:
+        return new_x,y
+    else:
+        return x,y  
+
+
+b = (0,0,0)
+r = (255,0,0)
+w = (255,255,255)
+board = [[r,r,r,r,r,r,r,r], 
+         [r,b,b,b,b,b,b,r],
+         [r,b,b,b,b,b,b,r],
+         [r,b,b,b,b,b,b,r],
+         [r,b,b,b,b,b,b,r],
+         [r,b,b,b,b,b,b,r],
+         [r,b,b,b,b,b,b,r], 
+         [r,r,r,r,r,r,r,r]]
+print(board )
+while True:
+   
+    o = sense.get_orientation()
+    pitch = o['pitch'] 
+    roll = o['roll'] 
+
+    print("pitch {0} roll {1}".format(round(pitch,0),round(roll,0)))
+    x,y = move_marble(pitch,roll,x,y)
+
+    #print white marble
+    print(y,x)
+    board[y][x] = w
+    sense.set_pixels(sum(board,[])) 
+    sleep(0.1)
+    #to delete trail of marble
+    board[y][x] = b
+    
+  
+
+    
