@@ -1,18 +1,28 @@
 from sense_hat import SenseHat
 from time import sleep
 
+#Game constants
+MIN_WIDTH = 0
+MAX_WIDTH = 7
+
+leftXBounds = (50,179)
+rightXBounds = (379, 180)
+topYBounds = (50,179)
+bottomYBounds = (379, 179)
+
+
 #movement of marble still wrong (check in lab)
 def move_marble(pitch,roll,x,y): 
     new_x = x    #assume no change to start with
     new_y = y    #assume no change to start with
-    if  1 < roll < 179 and x != 1:
+    if  leftXBounds[0] < pitch < leftXBounds[1]  and x != MIN_WIDTH:
         new_x -= 1 # move right
-    elif 359 > roll > 180   and x !=6:
+    elif rightXBounds[0] > pitch > rightXBounds[1]   and x != MAX_WIDTH:
         new_x += 1 #move left
-    if  1 < pitch < 179 and y != 6:
-        new_y += 1 # move right
-    elif 359 > pitch > 180   and y !=1:
-        new_y -= 1 #move left
+    if  topYBounds[0] < roll < topYBounds[1] and y != MAX_WIDTH:
+        new_y += 1 # move up
+    elif bottomYBounds[0] > roll > bottomYBounds[1]   and y !=MIN_WIDTH:
+        new_y -= 1 #move down
 
     new_x,new_y = check_wall(x,y,new_x,new_y)
     return new_x, new_y
@@ -30,11 +40,8 @@ def check_wall(x,y,new_x,new_y):
 
 #variables declaration
 sense = SenseHat()
-o = sense.get_orientation()
-pitch = o['pitch'] 
-roll = o['roll']
 game_over = False
-x,y = 2,1
+x,y = 6,7
 
 b = (0,0,0)
 r = (255,0,0)
@@ -51,6 +58,9 @@ board = [[r,r,r,b,b,b,b,r],
 
 #main body function
 while not game_over:
+    o = sense.get_orientation()
+    pitch = o['pitch'] 
+    roll = o['roll'] 
     print("pitch {0} roll {1}".format(round(pitch,0),round(roll,0)))
 
     #function that take care of marble movement
@@ -58,12 +68,14 @@ while not game_over:
 
     #print white marble (before that: check that marble's position != green trarget)
     if board[y][x] == g:
-        sense.show_message("yay!")
+        sense.set_rotation(180)
+        sense.show_message("YAY!")
         game_over = True
     else:    
         board[y][x] = w
+      
         sense.set_pixels(sum(board,[])) 
-        sleep(0.1)
+        sleep(0.2)
         #to delete trail of marble
         board[y][x] = b
         
