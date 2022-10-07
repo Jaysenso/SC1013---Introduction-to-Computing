@@ -1,16 +1,30 @@
+def exchange_money(budget, exchange_rate):
+    return budget / exchange_rate
+    pass
 
-EXPECTED_BAKE_TIME = 40
-PREPARATION_TIME = 2
 
-def bake_time_remaining(elapsed_bake_time):
-    return EXPECTED_BAKE_TIME - elapsed_bake_time     
+def get_change(budget, exchanging_value):
+    return budget - exchanging_value
+    pass
 
-def preparation_time_in_minutes(layers):
-    return layers * PREPARATION_TIME
-        
-def elapsed_time_in_minutes(number_of_layers, elapsed_bake_time):
-    print( preparation_time_in_minutes(number_of_layers),bake_time_remaining(elapsed_bake_time)
-    )
-    return preparation_time_in_minutes(number_of_layers) + bake_time_remaining(elapsed_bake_time)
-    
-elapsed_time_in_minutes(1,3)
+
+def get_value_of_bills(denomination, number_of_bills):
+    return denomination * number_of_bills
+    pass
+
+
+def get_number_of_bills(budget, denomination):
+
+    return float(budget) // denomination
+    pass
+
+
+def get_leftover_of_bills(budget, denomination):
+    return float(budget) % denomination
+    pass
+
+
+def exchangeable_value(budget, exchange_rate, spread, denomination):
+
+    return int( ((float(budget) * exchange_rate) + (float(budget) * 10/100)) // 20 )
+    pass
