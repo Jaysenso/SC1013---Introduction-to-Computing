@@ -11,20 +11,21 @@ void question4();
 int main()
 
 {
-    question4();
+    question3();
     return 0;
 }
 
-//Question 1 - Grades benchmark 
+//Question 1 - Grades benchmark
 void question1()
 {
- int studentNumber = 0, mark;
+int studentNumber = 0, mark;
 
-    printf("Enter Student ID:");
-    scanf("%d",&studentNumber);
+printf("Enter Student ID:\n");
+scanf("%d",&studentNumber);
+
     while (studentNumber!= -1)
     {
-        printf("Enter Mark:");
+        printf("Enter Mark:\n");
         scanf("%d",&mark);
         switch(mark)
         {
@@ -43,35 +44,48 @@ void question1()
             default:
                  printf("Grade = F\n");
                  break;
+
         }
+    printf("Enter Student ID:\n");
+    scanf("%d",&studentNumber);
     }
+
+
 return 0;
 }
 
 //Question 2 - Average calculation w. quit functionality
 void question2()
 {
-    int user_lines = 0 ,lines;
-    printf("Enter number of lines:");
+    int user_lines ,lines;
+    int input = 0;
+
+    printf("Enter number of lines:\n");
     scanf("%d",&user_lines);
-    int input = 0, index = 0;
-    float sum = 0;
+
     for (lines=0;lines<user_lines;lines++)
     {
+        float average = 0, sum = 0, index = 0;
+
         printf("Enter line %d (end with -1):\n",lines+1);
+        scanf("%d",&input);
+
         while (input != -1)
         {
-            scanf("%d",&input);
             if (input != -1)
             {
                 sum = sum + input;
                 index++;
             }
+            scanf("%d",&input);
         }
+
+        average = sum / index;
+        printf("Average = %.2f\n",average);
     }
 
-    float average = sum / index;
-    printf("Average = %.2f",average);
+
+
 
 return 0;
 }
@@ -82,13 +96,14 @@ void question3()
 //height is user defined
 int height = 0;
 
-//prompt for user_input 
-printf("Enter the Height:");
+//prompt for user_input
+printf("Enter the height:\n");
 scanf("%d",&height);
 
 //nested for loop for 2D array
 //Loop for rows
-for (int row=1;row<height+1;++row)    
+printf("Pattern:\n");
+for (int row=1;row<height+1;++row)
 {
     //Loops for columns
     for (int column=0;column<row;++column)
@@ -109,7 +124,7 @@ int fact = 1;
 float y= 0,x = 0, result = 0;
 
 //Prompt for user_input of pow(x)
-printf("Enter x:");
+printf("Enter x:\n");
 scanf("%f",&x);
 
 //Generate 10! factorial using for loop
@@ -117,13 +132,10 @@ for (int i=1;i<=10;i++)
 {
     fact = fact*i;
     result = result + pow(x,i)/fact;
-    //Debug prompt to check values of x and fact loop
-    printf("x:%.3f fact:%d \n",x,fact);
 }
 printf("Result = %.2f",result+1);
 return 0;
 }
-
 
 
 
