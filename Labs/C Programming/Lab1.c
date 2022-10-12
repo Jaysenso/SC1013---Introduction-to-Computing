@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <math.h>
 
@@ -9,9 +10,8 @@ void question4();
 
 //main function to execute specific question function
 int main()
-
 {
-    question3();
+    question1();
     return 0;
 }
 
@@ -49,9 +49,6 @@ scanf("%d",&studentNumber);
     printf("Enter Student ID:\n");
     scanf("%d",&studentNumber);
     }
-
-
-return 0;
 }
 
 //Question 2 - Average calculation w. quit functionality
@@ -83,11 +80,6 @@ void question2()
         average = sum / index;
         printf("Average = %.2f\n",average);
     }
-
-
-
-
-return 0;
 }
 
 //pattern printing with modulus (1-2-3-1-2-3)
@@ -113,7 +105,6 @@ for (int row=1;row<height+1;++row)
     }
     printf("\n");
 }
-return 0;
 }
 
 //Factorial calculation with for loop
@@ -134,7 +125,6 @@ for (int i=1;i<=10;i++)
     result = result + pow(x,i)/fact;
 }
 printf("Result = %.2f",result+1);
-return 0;
 }
 
 
