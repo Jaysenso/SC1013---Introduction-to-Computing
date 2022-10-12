@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 void question1(void);
 void question2(void);
 void question3(void);
@@ -94,16 +95,63 @@ last iteration: when num%10 == digit, if-else statement will return pos back to 
     while (num > 0);
     return 0;
 }
-
+/*
+ 234 num%10 = 4 (result = 1)
+ 23  num%10 = 3 (result = 2)
+ 2   num%10 = 2 (result = 3)
+ */
 void digitPos2(int num, int digit, int *result)
 {
+{
+    int pos = 0;
     do
     {
-        *result+=1;
+        pos++;
         if (num%10 == digit)
+        {
+            *result = pos;
             break;
-        else
-            num = num/10;
+        }
+        num = num/10;
     }
-    while (num > 0);
+    while (num>0);
+}
+}
+
+
+void question3()
+{
+    int square1(int num);
+    void square2(int num, int *result);
+    
+    int number;
+    int result =0;
+    
+    printf("Enter the number:\n");
+    scanf("%d",&number);
+    printf("Square1():%d\n",square1(number));
+    square2(number,&result);
+    printf("Square2():%d\n",result);
+    
+    
+}
+
+        
+int square1(int num)
+{
+    int result=0;
+    for (int i=0;i<num;++i)
+    {
+        result = result + (2*i+1);
+    }
+    return result;
+    
+}
+
+void square2(int num, int *result)
+{
+    for (int i = 0; i <num;++i)
+    {
+        *result = *result + (2*i+1);
+    }
 }
