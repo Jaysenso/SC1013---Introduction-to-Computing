@@ -1,0 +1,233 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#define MAX 5
+#define EMPTY 0
+#define FULL 1
+
+//Structure is defined to represent  room record in array
+typedef struct
+{
+    int roomID ;
+    int status;
+    char customerName[20];
+}room;
+
+//Function prototypes
+void listOccupiedRooms(room *roomInfo,int size);
+int assignRoom(room *roomInfo,int size);
+int removeRoom(room *roomInfo,int size);
+void findCustomer(room *roomInfo);
+void initializeStruct(room *roomInfo);
+
+
+
+//main body (display & input that quits when input =5)
+int main()
+{
+    room roomInfo[MAX];
+    int userchoice;
+    int size = 0;
+    for (int i=0;i<5;++i)
+    {
+        roomInfo[i].roomID = i;
+        roomInfo[i].status = EMPTY;
+        //printf("roomID: %d    room.status = %d\n",roomInfo[i].roomID+1,roomInfo[i].status);
+    }
+    //user interface display
+    printf("NTU HOTEL ROOM RESERVATION PROGRAM:\n");
+    printf("1: listOccupiedRooms()\n");
+    printf("2: assignRoom()\n");
+    printf("3: removeRoom()\n");
+    printf("4: findCustomer()\n");
+    printf("5: quit\n");
+    do
+    {
+        printf("Enter your choice:\n");
+        scanf(" %d",&userchoice);
+
+    switch (userchoice)
+        {
+            case 1: listOccupiedRooms(roomInfo,size);
+                break;
+            case 2: size = assignRoom(roomInfo,size);
+                break;
+            case 3: size = removeRoom(roomInfo,size);
+                break;
+            case 4: findCustomer(roomInfo);
+            break;
+    }
+    } while (userchoice != 5);
+
+}
+
+void initializeStruct(room *roomInfo)
+{
+    for (int i=1;i<=5;i++)
+        {
+            roomInfo[i].roomID = i;
+            roomInfo[i].status = EMPTY;
+            printf("roomID: %d    room.status = %d\n",roomInfo[i].roomID,roomInfo[i].status);
+        }
+}
+
+void listOccupiedRooms(room *roomInfo,int size)
+{
+    printf("listOccupiedRooms():\n");
+    if (size==0)
+        printf("The hotel is empty\n");
+
+
+    for (int i=0;i<5;++i)
+    {
+        if (roomInfo[i].status != EMPTY)
+        {
+            printf("roomID: %d\n",roomInfo[i].roomID+1);
+            printf("customer name: %s\n",roomInfo[i].customerName);
+        }
+    }
+}
+
+int assignRoom(room *roomInfo,int size)
+{
+    int roomNumber;
+    int result;
+
+    printf("assignRoom():\n");
+    if (size == MAX)
+        printf("The hotel is full\n");
+
+    else
+    {
+        printf("Enter a roomID between 1 and 5:\n");
+        scanf(" %d",&roomNumber);
+
+        while (roomNumber < 1 || roomNumber > 5)
+        {
+            printf("Enter a roomID between 1 and 5:\n");
+            scanf(" %d",&roomNumber);
+        }
+
+
+        while (roomInfo[roomNumber-1].status != EMPTY)
+        {
+            printf("Occupied! Enter another roomID\n");
+            printf("Enter a roomID between 1 and 5:\n");
+            scanf(" %d",&roomNumber);
+
+            while (roomNumber < 1 || roomNumber > 5)
+            {
+                printf("Occupied! Enter another roomID\n");
+                printf("Enter a roomID between 1 and 5:\n");
+                scanf(" %d",&roomNumber);
+            }
+        }
+
+        printf("Enter customer name:\n");
+        scanf(" %[^\n]",&roomInfo[roomNumber-1].customerName);
+        roomInfo[roomNumber-1].roomID == roomNumber;
+        roomInfo[roomNumber-1].status = 1;
+        printf("The room has been assigned successfully\n");
+        size++;
+        return size;
+        //debugger print
+        /*printf("RoomNumber = %d\n",roomNumber);
+        printf("roomInfo[roomNumber-1].status: %d name: %s\n",roomInfo[roomNumber-1].status,roomInfo[roomNumber-1].customerName);*/
+    }
+}
+
+int removeRoom(room *roomInfo, int size)
+{
+    int roomNumber;
+    if (size == 0)
+    {
+        printf("removeRoom():\n");
+        printf("All the rooms are empty\n");
+    }
+
+    else if (size>0)
+        {
+            printf("removeRoom():\n");
+            printf("Enter a roomID between 1 and 5:\n");
+            scanf(" %d",&roomNumber);
+
+            while (roomNumber < 1 || roomNumber > 5)
+            {
+                printf("Enter a roomID between 1 and 5:\n");
+                scanf(" %d",&roomNumber);
+            }
+
+            while (roomInfo[roomNumber-1].status == EMPTY)
+            {
+                printf("Empty! Enter another roomID for removal\n");
+                printf("Enter a roomID between 1 and 5:\n");
+                scanf(" %d",&roomNumber);
+
+                while (roomNumber < 1 || roomNumber > 5)
+                {
+                    printf("Enter a roomID between 1 and 5:\n");
+                    scanf(" %d",&roomNumber);
+                }
+            }
+
+            roomInfo[roomNumber-1].status = EMPTY;
+            roomInfo[roomNumber-1].customerName == NULL;
+            printf("Removal is successful\n");
+            size-=1;
+            return size;
+        }
+}
+
+
+void findCustomer(room *roomInfo)
+{
+    char Cust_Name[20];
+    char temp_str1[20];
+    char temp_str2[20];
+    int loop_Result = 0;
+
+    printf("findCustomer():\n");
+    printf("Enter customer name:\n");
+    scanf(" %[^\n]",&Cust_Name);
+
+    for(int i=0;i<MAX;++i)
+    {
+        //if (roomInfo[i].status == FULL)
+        {
+            strcpy(temp_str1,Cust_Name);
+            strcpy(temp_str2,roomInfo[i].customerName);
+
+            for (int j=0;temp_str1[j];j++)
+            {
+                temp_str1[j] = tolower(temp_str1[j]);
+            }
+
+            for (int j=0;temp_str1[j];j++)
+            {
+                temp_str2[j] = tolower(temp_str2[j]);
+            }
+
+            int result = strcmp(temp_str1,temp_str2);
+            if (result == 0)
+            {
+                printf("The target customer name is found\n");
+                printf("roomID: %d\n",roomInfo[i].roomID+1);
+                printf("customer name: %s\n",roomInfo[i].customerName);
+                return;
+            }
+        }
+    }
+        printf("The target customer name is not found\n");
+}
+
+
+
+
+
+
+
+
+
+
+
