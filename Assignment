@@ -15,21 +15,20 @@ typedef struct
 }room;
 
 //Function prototypes
-void listOccupiedRooms(room *roomInfo,int size);
-int assignRoom(room *roomInfo,int size);
-int removeRoom(room *roomInfo,int size);
+void listOccupiedRooms(room *roomInfo,int size_in_function_in_function);
+int assignRoom(room *roomInfo,int size_in_function);
+int removeRoom(room *roomInfo,int size_in_function);
 void findCustomer(room *roomInfo);
-void initializeStruct(room *roomInfo);
 
 
 
-//main body (display & input that quits when input =5)
+
 int main()
 {
     room roomInfo[MAX];
     int userchoice;
     int size = 0;
-    for (int i=0;i<5;++i)
+    for (int i=0;i<MAX;++i)
     {
         roomInfo[i].roomID = i;
         roomInfo[i].status = EMPTY;
@@ -45,7 +44,8 @@ int main()
     do
     {
         printf("Enter your choice:\n");
-        scanf(" %d",&userchoice);
+        scanf("\n");
+        scanf("%d",&userchoice);
 
     switch (userchoice)
         {
@@ -62,24 +62,14 @@ int main()
 
 }
 
-void initializeStruct(room *roomInfo)
-{
-    for (int i=1;i<=5;i++)
-        {
-            roomInfo[i].roomID = i;
-            roomInfo[i].status = EMPTY;
-            printf("roomID: %d    room.status = %d\n",roomInfo[i].roomID,roomInfo[i].status);
-        }
-}
-
-void listOccupiedRooms(room *roomInfo,int size)
+void listOccupiedRooms(room *roomInfo,int size_in_function)
 {
     printf("listOccupiedRooms():\n");
-    if (size==0)
+    if (size_in_function==0)
         printf("The hotel is empty\n");
 
 
-    for (int i=0;i<5;++i)
+    for (int i=0;i<MAX;++i)
     {
         if (roomInfo[i].status != EMPTY)
         {
@@ -89,23 +79,24 @@ void listOccupiedRooms(room *roomInfo,int size)
     }
 }
 
-int assignRoom(room *roomInfo,int size)
+int assignRoom(room *roomInfo,int size_in_function)
 {
     int roomNumber;
     int result;
 
     printf("assignRoom():\n");
-    if (size == MAX)
-        printf("The hotel is full\n");
 
-    else
+
+    if (size_in_function < MAX)
     {
-        printf("Enter a roomID between 1 and 5:\n");
+        printf("Enter a roomID between 1 and %d:\n",MAX);
+        scanf("\n");
         scanf(" %d",&roomNumber);
 
-        while (roomNumber < 1 || roomNumber > 5)
+        while (roomNumber < 1 || roomNumber > MAX)
         {
-            printf("Enter a roomID between 1 and 5:\n");
+            printf("Enter a roomID between 1 and %d:\n",MAX);
+            scanf("\n");
             scanf(" %d",&roomNumber);
         }
 
@@ -113,13 +104,15 @@ int assignRoom(room *roomInfo,int size)
         while (roomInfo[roomNumber-1].status != EMPTY)
         {
             printf("Occupied! Enter another roomID\n");
-            printf("Enter a roomID between 1 and 5:\n");
+            printf("Enter a roomID between 1 and %d:\n",MAX);
+            scanf("\n");
             scanf(" %d",&roomNumber);
 
-            while (roomNumber < 1 || roomNumber > 5)
+            while (roomNumber < 1 || roomNumber > MAX)
             {
                 printf("Occupied! Enter another roomID\n");
-                printf("Enter a roomID between 1 and 5:\n");
+                printf("Enter a roomID between 1 and %d:\n",MAX);
+                scanf("\n");
                 scanf(" %d",&roomNumber);
             }
         }
@@ -129,44 +122,54 @@ int assignRoom(room *roomInfo,int size)
         roomInfo[roomNumber-1].roomID == roomNumber;
         roomInfo[roomNumber-1].status = 1;
         printf("The room has been assigned successfully\n");
-        size++;
-        return size;
+        size_in_function+=1;
+        return size_in_function;
+    }
+
+    else if (size_in_function >= MAX)
+        printf("The hotel is full\n");
+
+
         //debugger print
         /*printf("RoomNumber = %d\n",roomNumber);
         printf("roomInfo[roomNumber-1].status: %d name: %s\n",roomInfo[roomNumber-1].status,roomInfo[roomNumber-1].customerName);*/
-    }
 }
 
-int removeRoom(room *roomInfo, int size)
+
+int removeRoom(room *roomInfo, int size_in_function)
 {
     int roomNumber;
-    if (size == 0)
+    if (size_in_function == 0)
     {
         printf("removeRoom():\n");
         printf("All the rooms are empty\n");
     }
 
-    else if (size>0)
+    else if (size_in_function>0)
         {
             printf("removeRoom():\n");
-            printf("Enter a roomID between 1 and 5:\n");
+            printf("Enter a roomID between 1 and %d:\n",MAX);
+            scanf("\n");
             scanf(" %d",&roomNumber);
 
-            while (roomNumber < 1 || roomNumber > 5)
+            while (roomNumber < 1 || roomNumber > MAX)
             {
-                printf("Enter a roomID between 1 and 5:\n");
+                printf("Enter a roomID between 1 and %d:\n",MAX);
+                scanf("\n");
                 scanf(" %d",&roomNumber);
             }
 
             while (roomInfo[roomNumber-1].status == EMPTY)
             {
                 printf("Empty! Enter another roomID for removal\n");
-                printf("Enter a roomID between 1 and 5:\n");
+                printf("Enter a roomID between 1 and %d:\n",MAX);
+                scanf("\n");
                 scanf(" %d",&roomNumber);
 
-                while (roomNumber < 1 || roomNumber > 5)
+                while (roomNumber < 1 || roomNumber > MAX)
                 {
-                    printf("Enter a roomID between 1 and 5:\n");
+                    printf("Enter a roomID between 1 and %d:\n",MAX);
+                    scanf("\n");
                     scanf(" %d",&roomNumber);
                 }
             }
@@ -174,9 +177,10 @@ int removeRoom(room *roomInfo, int size)
             roomInfo[roomNumber-1].status = EMPTY;
             roomInfo[roomNumber-1].customerName == NULL;
             printf("Removal is successful\n");
-            size-=1;
-            return size;
+            size_in_function-=1;
+
         }
+        return size_in_function;
 }
 
 
@@ -187,8 +191,10 @@ void findCustomer(room *roomInfo)
     char temp_str2[20];
     int loop_Result = 0;
 
+
     printf("findCustomer():\n");
     printf("Enter customer name:\n");
+    scanf("\n");
     scanf(" %[^\n]",&Cust_Name);
 
     for(int i=0;i<MAX;++i)
@@ -220,6 +226,7 @@ void findCustomer(room *roomInfo)
     }
         printf("The target customer name is not found\n");
 }
+
 
 
 
