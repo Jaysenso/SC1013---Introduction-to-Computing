@@ -180,7 +180,7 @@ int removeRoom(room *roomInfo, int size_in_function)
             size_in_function-=1;
 
         }
-        return size_in_function;
+return size_in_function;
 }
 
 
