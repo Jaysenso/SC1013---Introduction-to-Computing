@@ -21,8 +21,6 @@ int removeRoom(room *roomInfo,int size_in_function);
 void findCustomer(room *roomInfo);
 
 
-
-
 int main()
 {
     room roomInfo[MAX];
