@@ -15,11 +15,10 @@ typedef struct
 }room;
 
 //Function prototypes
-void listOccupiedRooms(room *roomInfo,int size_in_function_in_function);
-int assignRoom(room *roomInfo,int size_in_function);
-int removeRoom(room *roomInfo,int size_in_function);
+void listOccupiedRooms(room *roomInfo,int size);
+int assignRoom(room *roomInfo,int size);
+int removeRoom(room *roomInfo,int size);
 void findCustomer(room *roomInfo);
-
 
 int main()
 {
@@ -60,10 +59,10 @@ int main()
 
 }
 
-void listOccupiedRooms(room *roomInfo,int size_in_function)
+void listOccupiedRooms(room *roomInfo,int size)
 {
     printf("listOccupiedRooms():\n");
-    if (size_in_function==0)
+    if (size==0)
         printf("The hotel is empty\n");
 
 
@@ -77,15 +76,14 @@ void listOccupiedRooms(room *roomInfo,int size_in_function)
     }
 }
 
-int assignRoom(room *roomInfo,int size_in_function)
+int assignRoom(room *roomInfo,int size)
 {
     int roomNumber;
     int result;
 
     printf("assignRoom():\n");
 
-
-    if (size_in_function < MAX)
+    if (size < MAX)
     {
         printf("Enter a roomID between 1 and %d:\n",MAX);
         scanf("\n");
@@ -120,13 +118,12 @@ int assignRoom(room *roomInfo,int size_in_function)
         roomInfo[roomNumber-1].roomID == roomNumber;
         roomInfo[roomNumber-1].status = 1;
         printf("The room has been assigned successfully\n");
-        size_in_function+=1;
-        return size_in_function;
+        size+=1;
+        return size;
     }
 
-    else if (size_in_function >= MAX)
+    else if (size >= MAX)
         printf("The hotel is full\n");
-
 
         //debugger print
         /*printf("RoomNumber = %d\n",roomNumber);
@@ -134,16 +131,16 @@ int assignRoom(room *roomInfo,int size_in_function)
 }
 
 
-int removeRoom(room *roomInfo, int size_in_function)
+int removeRoom(room *roomInfo, int size)
 {
     int roomNumber;
-    if (size_in_function == 0)
+    if (size == 0)
     {
         printf("removeRoom():\n");
         printf("All the rooms are empty\n");
     }
 
-    else if (size_in_function>0)
+    else if (size>0)
         {
             printf("removeRoom():\n");
             printf("Enter a roomID between 1 and %d:\n",MAX);
@@ -175,10 +172,10 @@ int removeRoom(room *roomInfo, int size_in_function)
             roomInfo[roomNumber-1].status = EMPTY;
             roomInfo[roomNumber-1].customerName == NULL;
             printf("Removal is successful\n");
-            size_in_function-=1;
+            size-=1;
 
         }
-return size_in_function;
+        return size;
 }
 
 
