@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main()
+/*
+ Monkey = 0 mod 12
+ Rooster = 1 mod 12
+ Dog = 2 mod 12
+ ...
+ */
+
+{
+    int birthyear;
+    char horoscope[11][7] = {"Monkey","Rooster","Dog","Pig","Rat","Cow","Tiger","Rabbit","Dragon","Snake","Horse","Goat"};
+    
+    printf("Enter your birth year:\n");
+    scanf("%d",&birthyear);
+    
+    while(birthyear != -1)
+    {
+        printf("chineseHoroscope: %s\n",horoscope[birthyear%12]);
+        printf("Enter your birth year:\n");
+        scanf("%d",&birthyear);
+    
+    }
+    
+}
