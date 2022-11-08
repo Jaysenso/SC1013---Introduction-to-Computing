@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <math.h>
+#define INIT_VALUE 999
+int extEvenDigits1(int num);
+void extEvenDigits2(int num, int *result);
+int main()
+{
+   int number, result = INIT_VALUE;
+    
+   printf("Enter a number: \n");
+   scanf("%d", &number);
+   printf("\nextEvenDigits1(): %d\n", extEvenDigits1(number));
+   extEvenDigits2(number, &result);
+   printf("extEvenDigits2(): %d\n", result);
+   return 0;
+}
+
+
+int extEvenDigits1(int num)
+{
+    int lastDigit;
+    int result = 0;
+    int i = 0;
+    
+    /* Write your code here */
+    while(num > 0)
+    {
+        lastDigit = num % 10;
+        
+        if (lastDigit % 2 == 0)
+        {
+            
+            printf("%d\n",lastDigit);
+            result = result + lastDigit*(pow(10,i));
+            i++;
+        }
+        num /= 10;
+        
+    }
+    return result;
+}
+    
+void extEvenDigits2(int num, int *result)
+{
+    /* Write your code here */
+    int lastDigit;
+    int i = 0;
+
+    /* Write your code here */
+    while(num > 0)
+    {
+        lastDigit = num % 10;
+        
+        if (lastDigit % 2 == 0)
+        {
+            *result = *result + lastDigit*(pow(10,i));
+            i++;
+        }
+        num /= 10;
+    }
+    
+    *result = *result - 999;
+
+}
