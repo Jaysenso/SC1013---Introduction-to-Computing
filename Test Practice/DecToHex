@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+void decTohexStr(char *str, int num);
+int main()
+{
+    int num,i;
+    char str[20];
+    printf("Enter a decimal number: \n");
+    scanf("%d",&num);
+    decTohexStr(str,num);
+    printf("decTohexStr(): %s\n",str);
+    return 0;
+}
+
+void decTohexStr(char *str, int num)
+{
+    /* Write your code here */
+    int i=0,j,remainder;
+    char temp;
+
+    while (num > 0)
+    {
+        remainder = num % 16;
+        if(remainder>9)
+        {
+            str[i] = 65 + (remainder - 10);
+        }   
+        else
+        {
+            str[i] = 48 + remainder;
+        }
+
+        i++;
+        num /= 16;
+    }
+
+    for(j=0;j<i/2;++j)
+    {
+       temp = str[j];
+       str[j] = str[i - j - 1];
+       str[i - j - 1] = temp;
+    }
+    str[i] = '\0';
+
+}
