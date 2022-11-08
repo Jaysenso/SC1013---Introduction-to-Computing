@@ -29,5 +29,6 @@ void PigLatin(char *eword, char *PLword)
     
     PLword[strlen(eword)] = 'a';
     PLword[strlen(eword)+1] = 'y';
+    PLword[strlen(eword)+2] = '\0';
             
 }
