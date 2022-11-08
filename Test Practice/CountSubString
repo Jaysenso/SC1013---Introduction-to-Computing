@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+int countSubstring(char str[], char substr[]);
+int main()
+{
+    char str[80], substr[80];
+    int result;
+
+    printf("Enter the string: \n");
+    scanf("%s",str);
+    printf("Enter the substring: \n");
+    scanf("%s",substr);
+    result = countSubstring(str, substr);
+    printf("countSubstring(): %d\n", result);
+    return 0;
+}
+
+
+int countSubstring(char str[], char substr[])
+{
+/* Write your code here */
+    int i,j,count=0,globalcount=0;
+    
+    for(i=0;i<(strlen(str));i++)
+    {
+        for(j=0;j<strlen(substr);j++)
+        {
+            if(str[i+j]==substr[j])
+            {
+                count++;
+            }
+            if (count == strlen(substr))
+            {
+                globalcount++;
+            }
+        }
+        count=0;
+    }
+    return globalcount;
+}
